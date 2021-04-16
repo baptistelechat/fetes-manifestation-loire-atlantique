@@ -3,6 +3,8 @@ var map = function (p) {
   let data;
   let polygons;
   let allCoordinates = [];
+  // Current month
+  let month
   // Create a variable to hold our map
   let myMap;
   // Create a new Mappa instance using Leaflet.
@@ -59,11 +61,9 @@ var map = function (p) {
       });
     });
     // Only redraw the point when the map changes and not every frame.
-    myMap.onChange(p.drawPoints);
+    // myMap.onChange(p.drawPoints);
   };
-
-  p.draw = function () {};
-
+  
   // Make responsive
   // p.windowResized = function () {
   //   p.resizeCanvas(p.windowWidth * 0.7, p.windowHeight);
@@ -74,47 +74,53 @@ var map = function (p) {
     eventsApi = data;
   };
 
-  p.drawPoints = function () {
-    // Clear the previous canvas on every frame
-    p.clear();
-    // Add a color to our ellipse
-    p.stroke(100);
-    p.strokeWeight(1);
-
-    // for the latitude and longitude of Nantes Ynov Campus
-    const ynov = myMap.latLngToPixel(47.2060661315918, -1.5389937162399292);
-
-    // Using that position, draw an ellipse
-    p.fill(245, 66, 96);
-    p.ellipse(ynov.x, ynov.y, 20, 20);
-
-    p.fill(120, 187, 204);
-    if (eventsApi) {
-      const DataLength = Object.keys(eventsApi.records).length;
-      for (let i = 0; i < DataLength; i++) {
-        const currentEvent = eventsApi.records[i];
-        const coordinates = myMap.latLngToPixel(
-          currentEvent.geometry.coordinates[1],
-          currentEvent.geometry.coordinates[0]
-        );
-        p.ellipse(coordinates.x, coordinates.y, 20, 20);
-      }
-    }
-
-    if (allCoordinates.length > 0) {
-      p.noFill();
-      p.beginShape();
-      for (let i = 0; i < allCoordinates.length; i++) {
-        let pos = myMap.latLngToPixel(
-          allCoordinates[i][1],
-          allCoordinates[i][0]
-        );
-        p.stroke(255, 255, 255, 90);
-        p.strokeWeight(4);
-        p.vertex(pos.x, pos.y);
-      }
-      p.endShape();
-    }
+  p.draw = function () {
+    month = (document.querySelector("#sliderLabel").textContent).substr(0,2)
+     // Clear the previous canvas on every frame
+     p.clear();
+     // Add a color to our ellipse
+     p.stroke(100);
+     p.strokeWeight(1);
+ 
+     // for the latitude and longitude of Nantes Ynov Campus
+     const ynov = myMap.latLngToPixel(47.2060661315918, -1.5389937162399292);
+ 
+     // Using that position, draw an ellipse
+     p.fill(245, 66, 96);
+     p.ellipse(ynov.x, ynov.y, 20, 20);
+ 
+     p.fill(120, 187, 204);
+     if (eventsApi) {
+       const DataLength = eventsApi.records.length;
+       for (let i = 0; i < DataLength; i++) {
+         const currentEvent = eventsApi.records[i];
+         const open = (currentEvent.fields.ouverturegranule).substr(3,2)
+         const close = (currentEvent.fields.ouverturegranule).substr(15,2)
+         if(month === open || month === close){
+           console.log('true')
+           const coordinates = myMap.latLngToPixel(
+             currentEvent.geometry.coordinates[1],
+             currentEvent.geometry.coordinates[0],
+           );
+           p.ellipse(coordinates.x, coordinates.y, 20, 20);
+         }
+       }
+     }
+ 
+     if (allCoordinates.length > 0) {
+       p.noFill();
+       p.beginShape();
+       for (let i = 0; i < allCoordinates.length; i++) {
+         let pos = myMap.latLngToPixel(
+           allCoordinates[i][1],
+           allCoordinates[i][0]
+         );
+         p.stroke(255, 255, 255, 90);
+         p.strokeWeight(4);
+         p.vertex(pos.x, pos.y);
+       }
+       p.endShape();
+     }
   };
 };
 var myp5 = new p5(map, "map");
