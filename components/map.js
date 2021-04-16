@@ -97,7 +97,6 @@ var map = function (p) {
          const open = (currentEvent.fields.ouverturegranule).substr(3,2)
          const close = (currentEvent.fields.ouverturegranule).substr(15,2)
          if(month === open || month === close){
-           console.log('true')
            const coordinates = myMap.latLngToPixel(
              currentEvent.geometry.coordinates[1],
              currentEvent.geometry.coordinates[0],

@@ -1,31 +1,91 @@
 @font-face {
   font-family: "Futura-Book";
-  src: url(./res/fonts/Futura-Book.ttf) format("truetype");
+  src: url("./res/fonts/futura-book-webfont.woff2") format("woff2"),
+    url("./res/fonts/futura-book-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futura";
+  src: url("./res/fonts/Futura-Bold.woff2") format("woff2"),
+    url("./res/fonts/Futura-Bold.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 html,
 body {
-  font-family: "Futura-Book";
+  font-family: "Futura-Book", "Futura";
   margin: 0;
   padding: 0;
   color: white;
-  /* display: flex;
-  flex-direction: row; */
 }
 
+/* Title */
 .title {
   z-index: 11;
   position: fixed;
   margin-left: 64px;
 }
 
-.meteo {
+/* Météo */
+#meteo-panel {
   z-index: 11;
   right: 0%;
   margin-right: 64px;
   position: fixed;
 }
 
+#titre-meteo {
+  text-align: right;
+}
+
+#meteo-panel .content-meteo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+#meteo-panel .content-meteo-infos {
+  display: inline-flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+#meteo-panel .content-meteo p {
+  margin: 0;
+}
+
+#meteo-panel .content-meteo-infos > div {
+  margin: 6px 0 0 0;
+  display: inline-flex;
+}
+#meteo-panel .content-meteo-infos .temperature {
+  margin-left: 40px;
+  font-size: 22px;
+  font-weight: bold;
+}
+#meteo-panel .content-meteo-infos .indice-vent img,
+#meteo-panel .content-meteo-infos .indice-uv img {
+  display: block;
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+}
+#meteo-panel .content-meteo-infos .indice-vent p,
+#meteo-panel .content-meteo-infos .indice-uv p {
+  display: inline-flex;
+  align-items: center;
+}
+#meteo-panel .content-meteo-img img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+/* Slider */
 #sliderLabel {
   z-index: 11;
   bottom: 6%;
@@ -64,4 +124,26 @@ input[type="range"]::-webkit-slider-thumb {
   border: 3px solid rgb(120, 187, 204);
   z-index: 3;
   cursor: pointer;
+}
+
+/* Media Queries */
+@media screen and (max-width: 955px) {
+  #titre-meteo {
+    display: none;
+  }
+
+  #meteo-panel {
+    z-index: 11;
+    top: 25%;
+    right: 0%;
+    margin-right: 16px;
+    position: fixed;
+  }
+
+  #meteo-panel .content-meteo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 }

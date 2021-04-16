@@ -2,29 +2,69 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Fêtes et manifestations en Loire-Atlantique</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
 
     <script src="libraries/p5.min.js"></script>
     <!-- <script src="libraries/p5.sound.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/mappa-mundi@0.0.4" type="text/javascript"></script>
-    <script language="javascript" type="text/javascript" src="./components/map.js"></script>
-    <script language="javascript" type="text/javascript" src="./res/script/month.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mappa-mundi@0.0.4"
+      type="text/javascript"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="./components/map.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="./components/meteo.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="./res/script/month.js"
+    ></script>
   </head>
   <body>
     <h1 class="title">Fêtes et manifestations en Loire-Atlantique</h1>
-    <div class="meteo">
-      <h1>Météo</h1>
+    <div id="meteo-panel">
+      <h2 id="titre-meteo">La météo de <span></span></h2>
+      <div class="content-meteo">
+        <div class="content-meteo-img">
+          <img src="" alt="" />
+        </div>
+        <div class="content-meteo-infos">
+          <p class="temperature"><span></span></p>
+          <div class="indice-vent">
+            <img src="./res/img/wind-icon.png" alt="Indice du Vent" />
+            <p></p>
+          </div>
+          <div class="indice-uv">
+            <img src="./res/img/uv-icon.png" alt="Indice UV" />
+            <p></p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="sliderContainer">
       <label for="slider"></label>
-      <input class="slider" name="slider" oninput="month(this)" type="range" min="1" max="12" steps="1" value="1">
+      <input
+        class="slider"
+        name="slider"
+        oninput="month(this)"
+        type="range"
+        min="1"
+        max="12"
+        steps="1"
+        value="1"
+      />
       <h2 id="sliderLabel">01 - Janvier</h2>
     </div>
-    <div id="map">
-    </div>
+    <div id="map"></div>
   </body>
 </html>
