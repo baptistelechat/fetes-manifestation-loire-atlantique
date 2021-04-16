@@ -1,0 +1,86 @@
+[
+ {
+   "Mois": "Janvier",
+   "Meteo": "Gelée",
+   "Temperature": "5°",
+   "Vent": "20km/h",
+   "UV": "UV 1"
+ },
+ {
+   "Mois": "Février",
+   "Meteo": "Eclaircie",
+   "Temperature": "10°",
+   "Vent": "15km/h",
+   "UV": "UV 2"
+ },
+ {
+   "Mois": "Mars",
+   "Meteo": "Averse",
+   "Temperature": "14°",
+   "Vent": "20km/h",
+   "UV": "UV 3"
+ },
+ {
+   "Mois": "Avril",
+   "Meteo": "Eclaircie",
+   "Temperature": "17°",
+   "Vent": "20km/h",
+   "UV": "UV 3"
+ },
+ {
+   "Mois": "Mai",
+   "Meteo": "Eclaircie",
+   "Temperature": "18°",
+   "Vent": "15km/h",
+   "UV": "UV 3"
+ },
+ {
+   "Mois": "Juin",
+   "Meteo": "Ensoleillé",
+   "Temperature": "22°",
+   "Vent": "12km/h",
+   "UV": "UV 4"
+ },
+ {
+   "Mois": "Juillet",
+   "Meteo": "Ensoleillé",
+   "Temperature": "28°",
+   "Vent": "10km/h",
+   "UV": "UV 5"
+ },
+ {
+   "Mois": "Août",
+   "Meteo": "Ensoleillé",
+   "Temperature": "30°",
+   "Vent": "10km/h",
+   "UV": "UV 5"
+ },
+ {
+   "Mois": "Septembre",
+   "Meteo": "Eclaircie",
+   "Temperature": "22°",
+   "Vent": "18km/h",
+   "UV": "UV 4"
+ },
+ {
+   "Mois": "Octobre",
+   "Meteo": "Averse",
+   "Temperature": "14°",
+   "Vent": "24km/h",
+   "UV": "UV 3"
+ },
+ {
+   "Mois": "Novembre",
+   "Meteo": "Tempête",
+   "Temperature": "8°",
+   "Vent": "15km/h",
+   "UV": "UV 1"
+ },
+ {
+   "Mois": "Décembre",
+   "Meteo": "Gelée",
+   "Temperature": "2°",
+   "Vent": "40km/h",
+   "UV": "UV 1"
+ }
+]

@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Futura-Book";
+  src: url(./res/fonts/Futura-Book.ttf) format("truetype");
+}
+
+html,
+body {
+  font-family: "Futura-Book";
+  margin: 0;
+  padding: 0;
+  color: white;
+  /* display: flex;
+  flex-direction: row; */
+}
+
+.title {
+  z-index: 11;
+  position: fixed;
+  margin-left: 64px;
+}
+
+.meteo {
+  z-index: 11;
+  right: 0%;
+  margin-right: 64px;
+  position: fixed;
+}
+
+#sliderLabel {
+  z-index: 11;
+  bottom: 6%;
+  right: 50%;
+  transform: translateX(50%);
+  position: fixed;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 2px;
+  background: rgb(221, 224, 224);
+  background-position: center;
+  background-repeat: no-repeat;
+  /* position: absolute; */
+  /* top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto; */
+  z-index: 11;
+  bottom: 5%;
+  right: 50%;
+  transform: translateX(50%);
+  position: fixed;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: rgb(221, 224, 224);
+  position: relative;
+  border: 3px solid rgb(120, 187, 204);
+  z-index: 3;
+  cursor: pointer;
+}
