@@ -126,9 +126,24 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
+/* Team */
+.team{
+  z-index: 11;
+  bottom: 2%;
+  left: 2%;
+  position: fixed;
+}
+
+.ynov {
+  z-index: 11;
+  bottom: 3%;
+  right: 2%;
+  position: fixed;
+  width: 10%;
+}
 /* Media Queries */
 @media screen and (max-width: 955px) {
-  #titre-meteo {
+  #titre-meteo, .team, .ynov {
     display: none;
   }
 

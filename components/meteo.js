@@ -45,23 +45,23 @@ var meteo = function (p) {
 
     switch (tabData[currentId].Meteo) {
       case "Gelée":
-        var srcImg = "../res/img/snow-icon.png";
+        var srcImg = "../res/img/meteo/snow-icon.png";
         var altImg = "Gelée";
         break;
       case "Éclaircie":
-        var srcImg = "../res/img/sunandcloud-icon.png";
+        var srcImg = "../res/img/meteo/sunandcloud-icon.png";
         var altImg = "Éclaircie";
         break;
       case "Tempête":
-        var srcImg = "../res/img/storm-icon.png";
+        var srcImg = "../res/img/meteo/storm-icon.png";
         var altImg = "Tempête";
         break;
       case "Averse":
-        var srcImg = "../res/img/rain-icon.png";
+        var srcImg = "../res/img/meteo/rain-icon.png";
         var altImg = "Averse";
         break;
       case "Ensoleillé":
-        var srcImg = "../res/img/sun-icon.png";
+        var srcImg = "../res/img/meteo/sun-icon.png";
         var altImg = "Ensoleillé";
         break;
     }
