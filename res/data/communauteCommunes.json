@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Nantes Métropole",
+    "city": "Nantes",
+    "coordX": 47.2186371,
+    "coordY": -1.5541362
+  },
+  {
+    "name": "Communauté d'agglomération de la Région Nazairienne et de l'Estuaire - CARENE",
+    "city": "St Nazaire",
+    "coordX": 47.2733517,
+    "coordY": -2.2138905
+  },
+  {
+    "name": "Communauté d'agglomération de la Presqu'île de Guérande Atlantique - Cap Atlantique",
+    "city": "La Baule-Escoublac",
+    "coordX": 47.2843726,
+    "coordY": -2.3951595
+  },
+  {
+    "name": "Pornic Agglo Pays de Retz",
+    "city": "Pornic",
+    "coordX": 47.1152695,
+    "coordY": -2.1040102
+  },
+  {
+    "name": "Clisson Sèvre et Maine Agglo",
+    "city": "Clisson",
+    "coordX": 47.0877218,
+    "coordY": -1.2817422
+  },
+  {
+    "name": "Communauté de communes du Pays d'Ancenis",
+    "city": "Ancenis",
+    "coordX": 47.3817908,
+    "coordY": -1.1957984
+  },
+  {
+    "name": "Communauté de communes d'Erdre et Gesvres",
+    "city": "Grandchamps-des-Fontaines",
+    "coordX": 47.3651112,
+    "coordY": -1.6058096
+  },
+  {
+    "name": "Communauté de communes Sèvre et Loire",
+    "city": "Vallet",
+    "coordX": 47.1610036,
+    "coordY": -1.2657431
+  },
+  {
+    "name": "Communauté de communes Châteaubriant-Derval",
+    "city": "Châteaubriant",
+    "coordX": 47.7194057,
+    "coordY": -1.3757282
+  },
+  {
+    "name": "Communauté de communes de Grand Lieu",
+    "city": "La Chevrolière",
+    "coordX": 47.0936557,
+    "coordY": -1.6117844
+  },
+  {
+    "name": "Communauté de communes Estuaire et Sillon",
+    "city": "Savenay",
+    "coordX": 47.3592304,
+    "coordY": -1.9421244
+  },
+  {
+    "name": "Communauté de communes du pays de Pont-Château - Saint-Gildas-des-Bois",
+    "city": "Pontchâteau",
+    "coordX": 47.4365488,
+    "coordY": -2.16204474
+  },
+  {
+    "name": "Communauté de communes du Sud Estuaire",
+    "city": "Paimboeuf",
+    "coordX": 47.2871357,
+    "coordY": -2.02641
+  },
+  {
+    "name": "Communauté de communes Sud Retz Atlantique",
+    "city": "Machecoul-Saint-Même",
+    "coordX": 47.0058802,
+    "coordY": -1.8082098
+  },
+  {
+    "name": "Communauté de communes de la région de Blain",
+    "city": "Blain",
+    "coordX": 47.4755536,
+    "coordY": -1.7643647
+  },
+  {
+    "name": "Communauté de communes de Nozay",
+    "city": "Nozay",
+    "coordX": 47.5647285,
+    "coordY": -1.625472
+  }
+]

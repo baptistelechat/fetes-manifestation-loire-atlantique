@@ -1,20 +1,21 @@
 var map = function (p) {
+  //Variables for API call and JSON use
+  let eventsApi;
+  let bigCities;
   // Variables for geoJSON
-  let data;
+  let geoJSON;
   let polygons;
   let allCoordinates = [];
   // Current month
-  let month
+  let month;
   // Create a variable to hold our map
   let myMap;
   // Create a new Mappa instance using Leaflet.
-  const mappa = new Mappa("Leaflet");
-  // Initialize eventsApi
-  var eventsApi;
+  let mappa = new Mappa("Leaflet");
 
-  // Lets put all our map options in a single object
-  const options = {
-    // Use coordinates of Sucé-sur-Erdre for center map
+  // Put all map options in a single object
+  let options = {
+    // Use coordinates of Sucé-sur-Erdre for center map on screen
     lat: 47.341551,
     lng: -1.5285694,
     zoom: 9,
@@ -24,37 +25,28 @@ var map = function (p) {
   };
 
   p.preload = function () {
-    // Get data of API
+    // Get data of API and JSON
     // Link of dataset : https://data.loire-atlantique.fr/explore/dataset/793866443_fetes-et-manifestations-en-loire-atlantique/table/?disjunctive.commune
-    p.loadJSON(
-      "https://data.loire-atlantique.fr/api/records/1.0/search/?dataset=793866443_fetes-et-manifestations-en-loire-atlantique&q=&rows=-1",
-      p.getData
+    eventsApi = p.loadJSON(
+      "https://data.loire-atlantique.fr/api/records/1.0/search/?dataset=793866443_fetes-et-manifestations-en-loire-atlantique&q=&rows=-1"
     );
-    data = p.loadJSON(
-      "../res/data/departement-44-loire-atlantique.geojson",
-      p.getGeoJSON
-    );
+    geoJSON = p.loadJSON("../res/data/departement-44-loire-atlantique.geojson");
+    bigCities = p.loadJSON("../res/data/communauteCommunes.json");
   };
 
   // p5.js setup
   p.setup = function () {
-    // Create a canvas 640x640
-    // canvas = createCanvas(640,640);
-
     // Create a canvas fullscreen
-    const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+    let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
 
-    // Create a tile map with coordinates of Nantes Ynov Campus
+    // Create a tile map with options
     myMap = mappa.tileMap(options);
-
-    // polygons = myMap.geoJSON(data, 'Polygon')
-    // console.log(polygons)
 
     // Overlay the canvas over the tile map
     myMap.overlay(canvas);
 
     // Convert GeoJSON file to an Array
-    polygons = myMap.geoJSON(data, "Polygon");
+    polygons = myMap.geoJSON(geoJSON, "Polygon");
     polygons.forEach(function (trip) {
       trip.forEach(function (coordinate) {
         allCoordinates.push(coordinate);
@@ -63,63 +55,99 @@ var map = function (p) {
     // Only redraw the point when the map changes and not every frame.
     // myMap.onChange(p.drawPoints);
   };
-  
+
   // Make responsive
   // p.windowResized = function () {
   //   p.resizeCanvas(p.windowWidth * 0.7, p.windowHeight);
-  //   p.drawYnov();
   // };
 
-  p.getData = function (data) {
-    eventsApi = data;
-  };
-
   p.draw = function () {
-    month = (document.querySelector("#sliderLabel").textContent).substr(0,2)
-     // Clear the previous canvas on every frame
-     p.clear();
-     // Add a color to our ellipse
-     p.stroke(100);
-     p.strokeWeight(1);
- 
-     // for the latitude and longitude of Nantes Ynov Campus
-     const ynov = myMap.latLngToPixel(47.2060661315918, -1.5389937162399292);
- 
-     // Using that position, draw an ellipse
-     p.fill(245, 66, 96);
-     p.ellipse(ynov.x, ynov.y, 20, 20);
- 
-     p.fill(120, 187, 204);
-     if (eventsApi) {
-       const DataLength = eventsApi.records.length;
-       for (let i = 0; i < DataLength; i++) {
-         const currentEvent = eventsApi.records[i];
-         const open = (currentEvent.fields.ouverturegranule).substr(3,2)
-         const close = (currentEvent.fields.ouverturegranule).substr(15,2)
-         if(month === open || month === close){
-           const coordinates = myMap.latLngToPixel(
-             currentEvent.geometry.coordinates[1],
-             currentEvent.geometry.coordinates[0],
-           );
-           p.ellipse(coordinates.x, coordinates.y, 20, 20);
-         }
-       }
-     }
- 
-     if (allCoordinates.length > 0) {
-       p.noFill();
-       p.beginShape();
-       for (let i = 0; i < allCoordinates.length; i++) {
-         let pos = myMap.latLngToPixel(
-           allCoordinates[i][1],
-           allCoordinates[i][0]
-         );
-         p.stroke(255, 255, 255, 90);
-         p.strokeWeight(4);
-         p.vertex(pos.x, pos.y);
-       }
-       p.endShape();
-     }
+    month = document.querySelector("#sliderLabel").textContent.substr(0, 2);
+    // Clear the previous canvas on every frame
+    p.clear();
+
+    // Get a list of event who is match with current month
+    let cityList = [];
+    if (eventsApi) {
+      let DataLength = eventsApi.records.length;
+      for (let i = 0; i < DataLength; i++) {
+        let currentEvent = eventsApi.records[i];
+        let open = currentEvent.fields.ouverturegranule.substr(3, 2);
+        let close = currentEvent.fields.ouverturegranule.substr(15, 2);
+        if (month === open || month === close) {
+          let coordinates = myMap.latLngToPixel(
+            currentEvent.geometry.coordinates[1],
+            currentEvent.geometry.coordinates[0]
+          );
+          p.fill(120, 187, 204);
+          p.ellipse(coordinates.x, coordinates.y, 20, 20);
+          cityList.push({
+            name: currentEvent.fields.commune,
+            coordX: coordinates.x,
+            coordY: coordinates.y,
+          });
+        }
+      }
+    }
+
+    // Calculate length between Event point and Big cities in Loire Atlantique base on community of towns
+    // Get an array who contain all length for every Big Cities
+    let distEventBigCities = [];
+    for (let i = 0; i < Object.keys(bigCities).length; i++) {
+      let pt = myMap.latLngToPixel(bigCities[i].coordX, bigCities[i].coordY);
+      distEventBigCities[i] = [i];
+      for (let j = 0; j < cityList.length; j++) {
+        distEventBigCities[i][j] = p.dist(cityList[j].coordX, cityList[j].coordY, pt.x, pt.y);
+      }
+    }
+
+    // Calculate mean of length
+    let mean = [];
+    for (let i = 0; i < distEventBigCities.length; i++) {
+      let currentElement = distEventBigCities[i];
+      let len = currentElement.length;
+      let sum = 0;
+      for (let j = 0; j < len; j++) {
+        sum += currentElement[j];
+      }
+      let res = sum / len;
+      mean.push(res);
+    }
+
+    // Use mean for set size of circle
+    for (let i = 0; i < distEventBigCities.length; i++) {
+      let pt = myMap.latLngToPixel(bigCities[i].coordX, bigCities[i].coordY);
+      let size = (1 / mean[i]) * 11000;
+      // let size = mean[i]/5
+      p.fill(245, 66, 96, 100);
+      p.ellipse(pt.x, pt.y, size, size);
+    }
+
+    // Draw Loire Atlantique
+    if (allCoordinates.length > 0) {
+      p.noFill();
+      p.beginShape();
+      for (let i = 0; i < allCoordinates.length; i++) {
+        let pos = myMap.latLngToPixel(
+          allCoordinates[i][1],
+          allCoordinates[i][0]
+        );
+        p.stroke(255, 255, 255, 90);
+        p.strokeWeight(4);
+        p.vertex(pos.x, pos.y);
+      }
+      p.endShape();
+    }
+
+    // Add a color to our ellipse
+    p.stroke(100);
+    p.strokeWeight(1);
+
+    // for the latitude and longitude of Nantes Ynov Campus
+    let ynov = myMap.latLngToPixel(47.2060661315918, -1.5389937162399292);
+    // Using that position, draw an ellipse
+    p.fill(228, 240, 0);
+    p.ellipse(ynov.x, ynov.y, 20, 20);
   };
 };
 var myp5 = new p5(map, "map");
