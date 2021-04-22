@@ -11,6 +11,9 @@ This project use vercel.com (A cloud platform for serverless deployment.)
 
 Go to https://fetes-manifestations-loire-atlantique.vercel.app/ to view the project.
 
+## 📚 TODO
+* Add animations.pde into P5js's project
+  * unizip animations.zip for view Processing project
 
 ## 📸 Project's Screenshots
 ### Main page

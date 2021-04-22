@@ -34,41 +34,12 @@ body {
   margin-bottom: 8px !important;
 }
 
-.subtitleCC {
+.subtitle {
   margin-top: 0;
-  color: rgb(245, 66, 96);
+  color: rgb(255, 255, 255);
   text-transform: uppercase;
 }
 
-.subtitle1 {
-  margin-top: 0;
-  color: rgb(0, 157, 224);
-  text-transform: capitalize;
-}
-
-.subtitle2 {
-  margin-top: 0;
-  color: rgb(40, 149, 72);
-  text-transform: capitalize;
-}
-
-.subtitle3 {
-  margin-top: 0;
-  color: rgb(220, 145, 27);
-  text-transform: capitalize;
-}
-
-.subtitle4 {
-  margin-top: 0;
-  color: rgb(90, 40, 127);
-  text-transform: capitalize;
-}
-
-.subtitle5 {
-  margin-top: 0;
-  color: rgb(232, 25, 115);
-  text-transform: capitalize;
-}
 
 /* Météo */
 #meteo-panel {
@@ -179,17 +150,40 @@ input[type="range"]::-webkit-slider-thumb {
   bottom: 3%;
   right: 2%;
   position: fixed;
-  width: 10%;
+  height: 10%;
 }
+
+/* Legend */
+.legend {
+  z-index: 11;
+  bottom: 3%;
+  right: 2%;
+  position: fixed;
+  margin-bottom: 8%;
+  text-align: right;
+}
+
+.top4 {
+  color: rgb(4, 209, 14)
+}
+
+.midfield {
+  color: rgb(252, 186, 3)
+}
+
+.last4 {
+  color: rgb(245, 66, 96)
+}
+
 /* Media Queries */
 @media screen and (max-width: 955px) {
-  #titre-meteo, .team, .ynov {
+  #titre-meteo, .team, .ynov, .legend{
     display: none;
   }
 
   #meteo-panel {
     z-index: 11;
-    top: 25%;
+    top: 28%;
     right: 0%;
     margin-right: 16px;
     position: fixed;
