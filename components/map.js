@@ -89,13 +89,147 @@ var map = function (p) {
             currentEvent.geometry.coordinates[0]
           );
           if (zoom > 9) {
-            if (recurring.length === 1) {
-              p.fill(45, 197, 235); // single event
-            } else {
-              p.fill(50, 168, 82); // recurring event
+            switch (currentEvent.fields.categorie) {
+              case "Spectacle":
+              case "Théatre":
+              case "Cinéma":
+              case "Conférence":
+              case "Festival":
+              case "Concert":
+                p.fill(0, 157, 224); // single event
+                if (recurring.length === 1) {
+                  p.ellipse(coordinates.x, coordinates.y, 20, 20); // single event
+                } else {
+                  p.rect(currentEvent.x, currentEvent.y, 20); // recurring event
+                }
+                let d1 = p.dist(
+                  p.mouseX,
+                  p.mouseY,
+                  coordinates.x,
+                  coordinates.y
+                );
+                if (d1 < 20) {
+                  document.querySelector(
+                    ".subtitle1"
+                  ).innerHTML = `${currentEvent.fields.categorie} : ${currentEvent.fields.nomoffre} (${currentEvent.fields.commune})`;
+                  document.querySelector(".subtitleCC").innerHTML = "";
+                  document.querySelector(".subtitle2").innerHTML = "";
+                  document.querySelector(".subtitle3").innerHTML = "";
+                  document.querySelector(".subtitle4").innerHTML = "";
+                  document.querySelector(".subtitle5").innerHTML = "";
+                }
+                break;
+              case "Sortie nature / environnement":
+              case "Randonnée":
+              case "Rallye":
+              case "Visites et sorties à thèmes":
+                p.fill(40, 149, 72); // single event
+                if (recurring.length === 1) {
+                  p.ellipse(coordinates.x, coordinates.y, 20, 20); // single event
+                } else {
+                  p.rect(coordinates.x, coordinates.y, 20); // recurring event
+                }
+                let d2 = p.dist(
+                  p.mouseX,
+                  p.mouseY,
+                  coordinates.x,
+                  coordinates.y
+                );
+                if (d2 < 20) {
+                  document.querySelector(
+                    ".subtitle2"
+                  ).innerHTML = `${currentEvent.fields.categorie} : ${currentEvent.fields.nomoffre} (${currentEvent.fields.commune})`;
+                  document.querySelector(".subtitleCC").innerHTML = "";
+                  document.querySelector(".subtitle1").innerHTML = "";
+                  document.querySelector(".subtitle3").innerHTML = "";
+                  document.querySelector(".subtitle4").innerHTML = "";
+                  document.querySelector(".subtitle5").innerHTML = "";
+                }
+                break;
+              case "Brocantes & vide-greniers":
+              case "Marché":
+              case "Fêtes populaires":
+              case "Manifestation Nationale":
+              case "Foire ou salon":
+              case "Exposition":
+                p.fill(220, 145, 27);
+                if (recurring.length === 1) {
+                  p.ellipse(coordinates.x, coordinates.y, 20, 20); // single event
+                } else {
+                  p.rect(coordinates.x, coordinates.y, 20); // recurring event
+                }
+                let d3 = p.dist(
+                  p.mouseX,
+                  p.mouseY,
+                  coordinates.x,
+                  coordinates.y
+                );
+                if (d3 < 20) {
+                  document.querySelector(
+                    ".subtitle3"
+                  ).innerHTML = `${currentEvent.fields.categorie} : ${currentEvent.fields.nomoffre} (${currentEvent.fields.commune})`;
+                  document.querySelector(".subtitleCC").innerHTML = "";
+                  document.querySelector(".subtitle1").innerHTML = "";
+                  document.querySelector(".subtitle2").innerHTML = "";
+                  document.querySelector(".subtitle4").innerHTML = "";
+                  document.querySelector(".subtitle5").innerHTML = "";
+                }
+                break;
+              case "Manifestation sportive":
+              case "Danse (spectacle)":
+                p.fill(90, 40, 127);
+                if (recurring.length === 1) {
+                  p.ellipse(coordinates.x, coordinates.y, 20, 20); // single event
+                } else {
+                  p.rect(coordinates.x, coordinates.y, 20); // recurring event
+                }
+                let d4 = p.dist(
+                  p.mouseX,
+                  p.mouseY,
+                  coordinates.x,
+                  coordinates.y
+                );
+                if (d4 < 20) {
+                  document.querySelector(
+                    ".subtitle4"
+                  ).innerHTML = `${currentEvent.fields.categorie} : ${currentEvent.fields.nomoffre} (${currentEvent.fields.commune})`;
+                  document.querySelector(".subtitleCC").innerHTML = "";
+                  document.querySelector(".subtitle1").innerHTML = "";
+                  document.querySelector(".subtitle2").innerHTML = "";
+                  document.querySelector(".subtitle3").innerHTML = "";
+                  document.querySelector(".subtitle5").innerHTML = "";
+                }
+                break;
+              case "Contes et lectures":
+              case "Stages-Atelier-Jeux":
+                p.fill(232, 25, 115);
+                if (recurring.length === 1) {
+                  p.ellipse(coordinates.x, coordinates.y, 20, 20); // single event
+                } else {
+                  p.rect(coordinates.x, coordinates.y, 20); // recurring event
+                }
+                let d5 = p.dist(
+                  p.mouseX,
+                  p.mouseY,
+                  coordinates.x,
+                  coordinates.y
+                );
+                if (d5 < 20) {
+                  document.querySelector(
+                    ".subtitle5"
+                  ).innerHTML = `${currentEvent.fields.categorie} : ${currentEvent.fields.nomoffre} (${currentEvent.fields.commune})`;
+                  document.querySelector(".subtitleCC").innerHTML = "";
+                  document.querySelector(".subtitle1").innerHTML = "";
+                  document.querySelector(".subtitle2").innerHTML = "";
+                  document.querySelector(".subtitle3").innerHTML = "";
+                  document.querySelector(".subtitle4").innerHTML = "";
+                }
+                break;
+              default:
+                break;
             }
-            p.ellipse(coordinates.x, coordinates.y, 20, 20);
           }
+
           cityList.push({
             name: currentEvent.fields.commune,
             coordX: coordinates.x,
@@ -133,16 +267,26 @@ var map = function (p) {
       let res = sum / len;
       mean.push(res);
     }
-    // document.querySelector('.logName').innerHTML = mean
 
     // Use mean for set size of circle
     for (let i = 0; i < distEventBigCities.length; i++) {
       let pt = myMap.latLngToPixel(bigCities[i].coordX, bigCities[i].coordY);
       let size = (1 / mean[i]) * 11000;
       // let size = mean[i]/5
-      if (zoom <=10 && zoom >=9) {
+      if (zoom <= 10 && zoom >= 9) {
         p.fill(245, 66, 96, 100);
         p.ellipse(pt.x, pt.y, size, size);
+        let d = p.dist(p.mouseX, p.mouseY, pt.x, pt.y);
+        if (d < size * 0.8) {
+          document.querySelector(
+            ".subtitleCC"
+          ).innerHTML = `${bigCities[i].name} (${bigCities[i].city})`;
+                  document.querySelector(".subtitle1").innerHTML = "";
+                  document.querySelector(".subtitle2").innerHTML = "";
+                  document.querySelector(".subtitle3").innerHTML = "";
+                  document.querySelector(".subtitle4").innerHTML = "";
+                  document.querySelector(".subtitle5").innerHTML = "";
+        }
       }
     }
 

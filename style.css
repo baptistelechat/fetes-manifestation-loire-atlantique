@@ -30,6 +30,46 @@ body {
   margin-left: 64px;
 }
 
+.title > h1 {
+  margin-bottom: 8px !important;
+}
+
+.subtitleCC {
+  margin-top: 0;
+  color: rgb(245, 66, 96);
+  text-transform: uppercase;
+}
+
+.subtitle1 {
+  margin-top: 0;
+  color: rgb(0, 157, 224);
+  text-transform: capitalize;
+}
+
+.subtitle2 {
+  margin-top: 0;
+  color: rgb(40, 149, 72);
+  text-transform: capitalize;
+}
+
+.subtitle3 {
+  margin-top: 0;
+  color: rgb(220, 145, 27);
+  text-transform: capitalize;
+}
+
+.subtitle4 {
+  margin-top: 0;
+  color: rgb(90, 40, 127);
+  text-transform: capitalize;
+}
+
+.subtitle5 {
+  margin-top: 0;
+  color: rgb(232, 25, 115);
+  text-transform: capitalize;
+}
+
 /* Météo */
 #meteo-panel {
   z-index: 11;
