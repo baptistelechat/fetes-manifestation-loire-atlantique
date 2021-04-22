@@ -28,8 +28,7 @@ var meteo = function (p) {
     currentId = parseInt(document.querySelector("#sliderLabel").textContent.substr(0, 2))-1
 
     //Affiche le mois du titre h2
-    let moisData = currentMonth;
-    h2MeteoSpan.html(moisData);
+    h2MeteoSpan.html(currentMonth);
 
     //Affiche la température
     let temperatureData = tabData[currentId].Temperature;

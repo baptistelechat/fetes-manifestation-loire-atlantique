@@ -47,8 +47,8 @@ var map = function (p) {
 
     // Convert GeoJSON file to an Array
     polygons = myMap.geoJSON(geoJSON, "Polygon");
-    polygons.forEach(function (trip) {
-      trip.forEach(function (coordinate) {
+    polygons.forEach(function (pt) {
+      pt.forEach(function (coordinate) {
         allCoordinates.push(coordinate);
       });
     });
@@ -66,21 +66,36 @@ var map = function (p) {
     // Clear the previous canvas on every frame
     p.clear();
 
+    let zoom = myMap.zoom();
+
     // Get a list of event who is match with current month
     let cityList = [];
     if (eventsApi) {
       let DataLength = eventsApi.records.length;
       for (let i = 0; i < DataLength; i++) {
         let currentEvent = eventsApi.records[i];
-        let open = currentEvent.fields.ouverturegranule.substr(3, 2);
-        let close = currentEvent.fields.ouverturegranule.substr(15, 2);
-        if (month === open || month === close) {
+        let schedule = currentEvent.fields.ouverturegranule.split(",");
+        let openingMonth = [];
+        for (let i = 0; i < schedule.length; i++) {
+          let open = schedule[i].substr(3, 2);
+          openingMonth.push(open);
+          let close = schedule[i].substr(15, 2);
+          openingMonth.push(close);
+        }
+        let recurring = [...new Set(openingMonth)];
+        if (openingMonth.includes(month)) {
           let coordinates = myMap.latLngToPixel(
             currentEvent.geometry.coordinates[1],
             currentEvent.geometry.coordinates[0]
           );
-          p.fill(120, 187, 204);
-          p.ellipse(coordinates.x, coordinates.y, 20, 20);
+          if (zoom > 9) {
+            if (recurring.length === 1) {
+              p.fill(45, 197, 235); // single event
+            } else {
+              p.fill(50, 168, 82); // recurring event
+            }
+            p.ellipse(coordinates.x, coordinates.y, 20, 20);
+          }
           cityList.push({
             name: currentEvent.fields.commune,
             coordX: coordinates.x,
@@ -97,7 +112,12 @@ var map = function (p) {
       let pt = myMap.latLngToPixel(bigCities[i].coordX, bigCities[i].coordY);
       distEventBigCities[i] = [i];
       for (let j = 0; j < cityList.length; j++) {
-        distEventBigCities[i][j] = p.dist(cityList[j].coordX, cityList[j].coordY, pt.x, pt.y);
+        distEventBigCities[i][j] = p.dist(
+          cityList[j].coordX,
+          cityList[j].coordY,
+          pt.x,
+          pt.y
+        );
       }
     }
 
@@ -113,14 +133,17 @@ var map = function (p) {
       let res = sum / len;
       mean.push(res);
     }
+    // document.querySelector('.logName').innerHTML = mean
 
     // Use mean for set size of circle
     for (let i = 0; i < distEventBigCities.length; i++) {
       let pt = myMap.latLngToPixel(bigCities[i].coordX, bigCities[i].coordY);
       let size = (1 / mean[i]) * 11000;
       // let size = mean[i]/5
-      p.fill(245, 66, 96, 100);
-      p.ellipse(pt.x, pt.y, size, size);
+      if (zoom <=10 && zoom >=9) {
+        p.fill(245, 66, 96, 100);
+        p.ellipse(pt.x, pt.y, size, size);
+      }
     }
 
     // Draw Loire Atlantique
