@@ -2,8 +2,10 @@
 
 <img src="https://www.ynov-nantes.com/app/uploads/2019/10/logo_ynov_campus_nantes.png" height="100" align="right">
 
+
 a data visualization and infography project base on open data set about party and show in Loire Atlantique (44 - France).
 
+![Code Time](https://img.shields.io/endpoint?style=flat&url=https://codetime-api.datreks.com/badge/353?logoColor=white%26project=fetes-manifestations-loire-atlantique%26recentMS=0%26showProject=false)
 
 
 ## 💻 Visit Website
